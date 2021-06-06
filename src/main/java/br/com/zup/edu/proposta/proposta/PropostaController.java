@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/propostas")
@@ -27,7 +29,8 @@ public class PropostaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> salvaProposta(@RequestBody @Valid PropostaRequest proposta){
+    public ResponseEntity<?> salvaProposta(@RequestBody @Valid PropostaRequest proposta,
+                                           UriComponentsBuilder uriComponentsBuilder){
 
         EnderecoRequest enderecoRequest = buscaEndereco.carregaEndereceo(proposta.getCep());
         if(enderecoRequest.getCep() == null){
@@ -36,7 +39,12 @@ public class PropostaController {
 
         Endereco enderecoSalvo = enderecoRepository.save(enderecoRequest.toEndereco());
         Proposta propostaSalva= propostaRepository.save(proposta.toProposta(enderecoSalvo));
-        return ResponseEntity.ok(propostaSalva);
+
+        URI uri = uriComponentsBuilder.path("/propostas/{propostaId}")
+                .buildAndExpand(propostaSalva.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).build();
 
     }
 
