@@ -46,4 +46,11 @@ public class ApiErrorHandle {
         return new ErrosResponse(ex.getMessage(), "Id da Proposta");
     }
 
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(UnprocessableApiErro.class)
+    public ErrosResponse unprocessableApiErro(UnprocessableApiErro ex){
+        return new ErrosResponse("Pedido não processado","Solicitação de proposta");
+
+    }
+
 }

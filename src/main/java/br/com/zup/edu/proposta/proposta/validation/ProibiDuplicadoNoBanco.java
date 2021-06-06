@@ -1,5 +1,7 @@
 package br.com.zup.edu.proposta.proposta.validation;
 
+import br.com.zup.edu.proposta.erroshandle.UnprocessableApiErro;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -48,7 +50,10 @@ class ProibiDuplicadoNoBancoValidator implements ConstraintValidator<ProibiDupli
         System.out.println(o);
         query.setParameter("valor", o);
         List<Object> list = query.getResultList();
-        return list.isEmpty();
+        if(list.isEmpty()) return false;
+
+        throw new UnprocessableApiErro("Pedido nao pode ser processado");
+
     }
 
 
