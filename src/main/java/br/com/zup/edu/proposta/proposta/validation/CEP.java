@@ -16,7 +16,7 @@ import static java.lang.annotation.ElementType.FIELD;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CEPValidator.class)
 public @interface CEP {
-    String message() default "Formado do CEP invalido";
+    String message() default "Formato do CEP invalido";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
@@ -27,4 +27,5 @@ class CEPValidator implements ConstraintValidator<CEP,String> {
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         return s.matches("[0-9]{2}.[0-9]{3}-[0-9]{3}") || s.matches("[0-9]{5}-[0-9]{3}")|| s.matches("[0-9]{8}");
     }
+
 }

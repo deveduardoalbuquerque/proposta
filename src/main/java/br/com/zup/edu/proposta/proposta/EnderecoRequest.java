@@ -1,11 +1,11 @@
 package br.com.zup.edu.proposta.proposta;
 
-import org.hibernate.validator.constraints.br.CPF;
+import br.com.zup.edu.proposta.proposta.validation.CEP;
 
 import javax.validation.constraints.NotBlank;
 
 public class EnderecoRequest {
-    @NotBlank @CPF
+    @NotBlank @CEP
     private String cep;
     private String logradouro;
     private String complemento;

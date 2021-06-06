@@ -50,8 +50,8 @@ public class PropostaRequest {
         return cep;
     }
 
-    public Proposta toProposta(EnderecoRequest enderecoRequest){
+    public Proposta toProposta(Endereco enderecoSalvo){
         Endereco endereco  = new Endereco();
-        return new Proposta(documento,email,nome,enderecoRequest.toEndereco(),salario);
+        return new Proposta(documento,email,nome,enderecoSalvo,salario);
     }
 }

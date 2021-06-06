@@ -1,6 +1,8 @@
 package br.com.zup.edu.proposta.proposta;
 
+import br.com.zup.edu.proposta.erroshandle.CEPNaoEncontrado;
 import br.com.zup.edu.proposta.util.BuscaEndereco;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,17 +27,16 @@ public class PropostaController {
     }
 
     @PostMapping
-    public void salvaProposta(@RequestBody @Valid PropostaRequest proposta){
+    public ResponseEntity<?> salvaProposta(@RequestBody @Valid PropostaRequest proposta){
 
         EnderecoRequest enderecoRequest = buscaEndereco.carregaEndereceo(proposta.getCep());
-        if(enderecoRequest.getCep().isEmpty()){
-            throw new RuntimeException("Endereço Enválido - Verifique CEP enviado");
+        if(enderecoRequest.getCep() == null){
+            throw new CEPNaoEncontrado("Endereço Enválido - Verifique CEP enviado");
         }
 
-
-
-        //        return proposta.toProposta(enderecoRequest);
-//        return repository.save(proposta.toProposta());
+        Endereco enderecoSalvo = enderecoRepository.save(enderecoRequest.toEndereco());
+        Proposta propostaSalva= propostaRepository.save(proposta.toProposta(enderecoSalvo));
+        return ResponseEntity.ok(propostaSalva);
 
     }
 
