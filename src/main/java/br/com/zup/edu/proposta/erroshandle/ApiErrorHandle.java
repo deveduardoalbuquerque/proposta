@@ -40,4 +40,10 @@ public class ApiErrorHandle {
         return  erros;
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(PropostaNaoEncontrada.class)
+    public ErrosResponse propostaNaoEncontrada(PropostaNaoEncontrada ex){
+        return new ErrosResponse(ex.getMessage(), "Id da Proposta");
+    }
+
 }

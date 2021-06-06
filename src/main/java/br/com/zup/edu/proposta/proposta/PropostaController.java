@@ -1,16 +1,16 @@
 package br.com.zup.edu.proposta.proposta;
 
+import br.com.zup.edu.proposta.erroshandle.ApiErrorHandle;
 import br.com.zup.edu.proposta.erroshandle.CEPNaoEncontrado;
+import br.com.zup.edu.proposta.erroshandle.PropostaNaoEncontrada;
 import br.com.zup.edu.proposta.util.BuscaEndereco;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/propostas")
@@ -45,6 +45,17 @@ public class PropostaController {
                 .toUri();
 
         return ResponseEntity.created(uri).build();
+
+    }
+
+    @GetMapping("/{propostaId}")
+    public ResponseEntity<Proposta> pegaProposta(@PathVariable Long propostaId){
+        Optional<Proposta> temProposta = propostaRepository.findById(propostaId);
+
+        if(temProposta.isEmpty()) throw new PropostaNaoEncontrada("Proposta de número " +propostaId+ " Não Encontrada");
+
+        return ResponseEntity.ok(temProposta.get());
+
 
     }
 
