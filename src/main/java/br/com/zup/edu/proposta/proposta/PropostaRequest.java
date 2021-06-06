@@ -1,6 +1,8 @@
 package br.com.zup.edu.proposta.proposta;
 
 import br.com.zup.edu.proposta.proposta.validation.CEP;
+import br.com.zup.edu.proposta.proposta.validation.CPFouCNPJ;
+import br.com.zup.edu.proposta.proposta.validation.ProibiDuplicadoNoBanco;
 import br.com.zup.edu.proposta.util.BuscaEndereco;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,8 +13,11 @@ import java.math.BigDecimal;
 
 public class PropostaRequest {
     @NotBlank
+    @ProibiDuplicadoNoBanco(aClass = Proposta.class,campo = "documento")
+    @CPFouCNPJ
     private String documento;
     @NotBlank @Email
+    @ProibiDuplicadoNoBanco(aClass = Proposta.class,campo = "email")
     private String email;
     @NotBlank
     private String nome;

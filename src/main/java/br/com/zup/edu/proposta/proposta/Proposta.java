@@ -1,5 +1,7 @@
 package br.com.zup.edu.proposta.proposta;
 
+import br.com.zup.edu.proposta.proposta.validation.CPFouCNPJ;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -9,6 +11,7 @@ public class Proposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
+    @CPFouCNPJ
     private String documento;
     @Column(nullable = false, unique = true)
     private String email;
