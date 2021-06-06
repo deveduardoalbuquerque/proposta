@@ -53,11 +53,16 @@ public class Proposta {
     public BigDecimal getSalario() {
         return salario;
     }
+
+    @Override
+    public String toString() {
+        return "Proposta{" +
+                "id=" + id +
+                ", documento='" + documento + '\'' +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", endereco=" + endereco +
+                ", salario=" + salario +
+                '}';
+    }
 }
-/*
-O documento necessário deve ser o CPF/CNPJ
-email
-nome
-endereço
-salário
- */

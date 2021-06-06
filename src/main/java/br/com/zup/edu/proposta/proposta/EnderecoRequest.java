@@ -1,39 +1,27 @@
 package br.com.zup.edu.proposta.proposta;
 
-import javax.persistence.*;
+import org.hibernate.validator.constraints.br.CPF;
 
-@Entity
-public class Endereco {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
+import javax.validation.constraints.NotBlank;
+
+public class EnderecoRequest {
+    @NotBlank @CPF
     private String cep;
-    @Column(nullable = false)
     private String logradouro;
     private String complemento;
-    @Column(nullable = false)
     private String bairro;
-    @Column(nullable = false)
+    @NotBlank
     private String localidade;
-    @Column(nullable = false)
     private String uf;
 
-    public Endereco() {
-    }
-
-    public Endereco(String cep, String logradouro, String complemento,
-                    String bairro, String localidade, String uf) {
+    public EnderecoRequest(String cep, String logradouro, String complemento,
+                           String bairro, String localidade, String uf) {
         this.cep = cep;
         this.logradouro = logradouro;
         this.complemento = complemento;
         this.bairro = bairro;
         this.localidade = localidade;
         this.uf = uf;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getCep() {
@@ -60,11 +48,14 @@ public class Endereco {
         return uf;
     }
 
+    public Endereco toEndereco(){
+        return new Endereco(cep,logradouro,complemento,bairro,localidade,uf);
+    }
+
     @Override
     public String toString() {
-        return "Endereco{" +
-                "id=" + id +
-                ", cep='" + cep + '\'' +
+        return "EnderecoRequest{" +
+                "cep='" + cep + '\'' +
                 ", logradouro='" + logradouro + '\'' +
                 ", complemento='" + complemento + '\'' +
                 ", bairro='" + bairro + '\'' +
