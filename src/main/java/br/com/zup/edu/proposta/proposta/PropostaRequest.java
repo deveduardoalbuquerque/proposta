@@ -57,6 +57,6 @@ public class PropostaRequest {
 
     public Proposta toProposta(Endereco enderecoSalvo){
         Endereco endereco  = new Endereco();
-        return new Proposta(documento,email,nome,enderecoSalvo,salario);
+        return new Proposta(documento,email,nome,enderecoSalvo,salario, null);
     }
 }

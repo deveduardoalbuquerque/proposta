@@ -50,7 +50,7 @@ class ProibiDuplicadoNoBancoValidator implements ConstraintValidator<ProibiDupli
         System.out.println(o);
         query.setParameter("valor", o);
         List<Object> list = query.getResultList();
-        if(list.isEmpty()) return false;
+        if(list.isEmpty()) return true;
 
         throw new UnprocessableApiErro("Pedido nao pode ser processado");
 

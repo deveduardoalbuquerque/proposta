@@ -1,5 +1,6 @@
 package br.com.zup.edu.proposta.proposta;
 
+import br.com.zup.edu.proposta.proposta.cartao.Cartao;
 import br.com.zup.edu.proposta.proposta.validation.CPFouCNPJ;
 
 import javax.persistence.*;
@@ -21,16 +22,29 @@ public class Proposta {
     private Endereco endereco;
     @Column(nullable = false)
     private BigDecimal salario;
+    @OneToOne
+    private Cartao cartao;
 
     public Proposta() {
     }
 
-    public Proposta(String documento, String email, String nome, Endereco endereco, BigDecimal salario) {
+    public Proposta(String documento, String email, String nome, Endereco endereco,
+                    BigDecimal salario,Cartao cartao) {
         this.documento = documento;
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
+        this.cartao = cartao;
+    }
+
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
     }
 
     public Long getId() {

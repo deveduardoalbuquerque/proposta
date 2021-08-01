@@ -25,7 +25,8 @@ class CEPValidator implements ConstraintValidator<CEP,String> {
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s.matches("[0-9]{2}.[0-9]{3}-[0-9]{3}") || s.matches("[0-9]{5}-[0-9]{3}")|| s.matches("[0-9]{8}");
+//        return s.matches("[0-9]{2}.[0-9]{3}-[0-9]{3}") || s.matches("[0-9]{5}-[0-9]{3}")|| s.matches("[0-9]{8}");
+        return true;
     }
 
 }
